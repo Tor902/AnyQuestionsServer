@@ -25,7 +25,8 @@ class AudioDataController (
         val recognitionConfig: RecognitionConfig = RecognitionConfig.newBuilder()
             .setEncoding(RecognitionConfig.AudioEncoding.LINEAR16)
             .setLanguageCode("en-US")
-            .setSampleRateHertz(16000)
+            .setSampleRateHertz(48000)
+            .setAudioChannelCount(2)
             .build()
 
         val audio: RecognitionAudio = RecognitionAudio.newBuilder()
