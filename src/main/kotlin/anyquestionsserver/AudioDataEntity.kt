@@ -13,5 +13,5 @@ class AudioDataEntity() {
     var aTranscript: String? = null
     var qAudioLen: Float? = null
     var aAudioLen: Float? = null
-    @Lob var moreAttributes: String? = null
+//    @Lob var moreAttributes: String? = null
 }

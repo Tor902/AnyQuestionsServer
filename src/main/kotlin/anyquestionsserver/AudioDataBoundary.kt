@@ -9,10 +9,6 @@ class AudioDataBoundary {
     var aTranscript: String? = null
     var qAudioBytes: ByteArray? = null
     var aAudioBytes: ByteArray? = null
-    var moreAttributes: Map<String, Any>? = null
-
-
-//    var transcript: String? = null
-
+//    var moreAttributes: Map<String, Any>? = null
 
 }

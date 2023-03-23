@@ -40,7 +40,7 @@ class AudioDataConverter {
         entity.courseId = boundary.courseId
         entity.groupId = boundary.groupId
         entity.classId = boundary.classId
-        entity.moreAttributes = ObjectMapper().writeValueAsString(boundary.moreAttributes)
+//        entity.moreAttributes = ObjectMapper().writeValueAsString(boundary.moreAttributes)
         return entity
 
     }
@@ -57,7 +57,7 @@ class AudioDataConverter {
         boundary.courseId =  entity.courseId
         boundary.groupId =  entity.groupId
         boundary.courseId =  entity.courseId
-        boundary.moreAttributes = ObjectMapper().readValue(entity.moreAttributes, Map::class.java) as Map<String, Any>
+//        boundary.moreAttributes = ObjectMapper().readValue(entity.moreAttributes, Map::class.java) as Map<String, Any>
 
 
         return boundary
