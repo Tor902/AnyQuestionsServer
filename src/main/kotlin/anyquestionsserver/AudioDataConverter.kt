@@ -13,34 +13,22 @@ class AudioDataConverter {
         if(boundary.id != null){
             entity.id = boundary.id!!.toLong()
         }
-        if(boundary.aTranscript != null) {
+
+        if(boundary.aTranscript != null && boundary.aAudioBytes != null) {
             entity.aTranscript = boundary.aTranscript
-            val byteArrayInputStream = ByteArrayInputStream(boundary.aAudioBytes)
-            val audioInputStream = AudioSystem.getAudioInputStream(byteArrayInputStream)
-            val format = audioInputStream.format
-            val frameLength = audioInputStream.frameLength
-            val frameRate = format.frameRate
-            val durationInSeconds = frameLength / frameRate
-            entity.aAudioLen = durationInSeconds
+            entity.aAudioLen = getAudioDuration(boundary.aAudioBytes!!)
             entity.aTranscript = boundary.aTranscript
         }
 
-        if(boundary.qTranscript != null) {
+        if(boundary.qTranscript != null && boundary.qAudioBytes != null) {
             entity.qTranscript = boundary.qTranscript
-            val byteArrayInputStream = ByteArrayInputStream(boundary.qAudioBytes)
-            val audioInputStream = AudioSystem.getAudioInputStream(byteArrayInputStream)
-            val format = audioInputStream.format
-            val frameLength = audioInputStream.frameLength
-            val frameRate = format.frameRate
-            val durationInSeconds = frameLength / frameRate
-            entity.qAudioLen = durationInSeconds
+            entity.qAudioLen = getAudioDuration(boundary.qAudioBytes!!)
             entity.qTranscript = boundary.qTranscript
         }
 
         entity.courseId = boundary.courseId
         entity.groupId = boundary.groupId
         entity.classId = boundary.classId
-//        entity.moreAttributes = ObjectMapper().writeValueAsString(boundary.moreAttributes)
         return entity
 
     }
@@ -63,5 +51,19 @@ class AudioDataConverter {
         return boundary
     }
 
+    fun getAudioDuration(audioBytes: ByteArray): Float {
+        // Load the byte array into an AudioInputStream
+        val byteArrayInputStream = ByteArrayInputStream(audioBytes)
+        val audioInputStream = AudioSystem.getAudioInputStream(byteArrayInputStream)
 
+        // Get the audio format
+        val format = audioInputStream.format
+
+        // Calculate the duration of the audio based on the byte array's size and sample rate
+        val frameLength = audioInputStream.frameLength
+        val frameRate = format.frameRate
+        val durationInSeconds = frameLength / frameRate
+
+        return durationInSeconds
+    }
 }

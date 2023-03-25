@@ -4,10 +4,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "2.7.10"
 	id("io.spring.dependency-management") version "1.0.15.RELEASE"
+
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
 	kotlin("plugin.jpa") version "1.6.21"
-
 }
 
 group = "com.example"
@@ -28,6 +28,14 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-ui:1.6.15")
 	// https://mvnrepository.com/artifact/com.google.cloud/google-cloud-speech
 	implementation("com.google.cloud:google-cloud-speech:4.8.0")
+	// https://mvnrepository.com/artifact/org.apache.tika/tika-core
+	implementation("org.apache.tika:tika-core:2.7.0")
+	// https://mvnrepository.com/artifact/org.apache.tika/tika-parser-audiovideo-module
+	implementation("org.apache.tika:tika-parser-audiovideo-module:2.7.0")
+
+
+// https://mvnrepository.com/artifact/org.apache.tika/tika-parsers
+	implementation("org.apache.tika:tika-parsers:2.7.0")
 
 	runtimeOnly("com.h2database:h2")
 	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-kotlin
