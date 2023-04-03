@@ -1,6 +1,5 @@
 package anyquestionsserver
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.stereotype.Component
 import java.io.ByteArrayInputStream
 import javax.sound.sampled.AudioSystem
@@ -28,7 +27,7 @@ class AudioDataConverter {
 
         entity.courseId = boundary.courseId
         entity.groupId = boundary.groupId
-        entity.classId = boundary.classId
+        entity.lectureId = boundary.lectureId
         return entity
 
     }
@@ -44,7 +43,7 @@ class AudioDataConverter {
         boundary.aTranscript = entity.aTranscript
         boundary.courseId =  entity.courseId
         boundary.groupId =  entity.groupId
-        boundary.courseId =  entity.courseId
+        boundary.lectureId =  entity.lectureId
 //        boundary.moreAttributes = ObjectMapper().readValue(entity.moreAttributes, Map::class.java) as Map<String, Any>
 
 
