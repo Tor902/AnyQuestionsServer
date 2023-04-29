@@ -13,8 +13,7 @@ class QestionAnswerEntity() {
     @Column(length = 1000)
     var qTranscript: String? = null
     var aTranscript: String? = null
-    var qAudioLen: Float? = null
-    var aAudioLen: Float? = null
+    var audioLen: Float? = null
     var qTimestamp: LocalDateTime? = null
     var likes: Int? = null
     var lectureId: Long? = null

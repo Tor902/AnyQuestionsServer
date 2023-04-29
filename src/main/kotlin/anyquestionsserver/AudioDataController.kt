@@ -19,7 +19,7 @@ class AudioDataController (
     ) {
 
     @RequestMapping(
-        path = ["/audio/{courseId}/{groupId}/{lectureId}"],
+        path = ["/audio/{courseId}/{groupId}/{lectureId}/{type}"],
         method = [RequestMethod.POST],
         consumes = [MediaType.APPLICATION_OCTET_STREAM_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE]
@@ -28,19 +28,22 @@ class AudioDataController (
         @RequestBody audioData: ByteArray,
         @PathVariable courseId: String,
         @PathVariable groupId: String,
+        @PathVariable type: String,
         @PathVariable lectureId: String,
     ): AudioDataBoundary {
 
-        val transcript: String = processAudioData(audioData)
+        val transcripts: Pair<String, String> = processAudioData(audioData)
+        val qTranscript = transcripts.first
+        val aTranscript = transcripts.first
 
         var audioDataBoundary = AudioDataBoundary()
-        audioDataBoundary.qAudioBytes = audioData
-        audioDataBoundary.qTranscript = transcript
+
+        audioDataBoundary.qTranscript = qTranscript
+        audioDataBoundary.aTranscript = aTranscript
+
         audioDataBoundary.courseId = courseId
         audioDataBoundary.groupId = groupId
         audioDataBoundary.lectureId = lectureId
-
-
 
         return audioDataService.create(audioDataBoundary)
     }
@@ -68,7 +71,7 @@ class AudioDataController (
 
 }
 
-private fun processAudioData(audioData: ByteArray): String  {
+private fun processAudioData(audioData: ByteArray): Pair<String, String>  {
 
     val byteArrayInputStream = ByteArrayInputStream(audioData)
     val audioInputStream = AudioSystem.getAudioInputStream(byteArrayInputStream)
@@ -110,14 +113,25 @@ private fun processAudioData(audioData: ByteArray): String  {
     val response: RecognizeResponse = speechClient.recognize(recognitionConfig, audio)
     // Extract the transcription from the response
     var transcript = ""
+
+    val speaker1Words = StringBuilder()
+    val speaker2Words = StringBuilder()
     for (wordData in response.resultsList[response.resultsList.size-1].alternativesList[0].wordsList){
-        transcript += "${wordData.word} "
+        if (wordData.speakerTag == 1) {
+            speaker1Words.append(wordData.word)
+        } else if (wordData.speakerTag == 2) {
+            speaker2Words.append(wordData.word)
+        }
     }
 
-    print("\n\nStart here:\n")
-    print(transcript)
-    print("\n\nEnd here\n")
+        return Pair(speaker1Words.toString(), speaker2Words.toString())
+    }
 
-    return transcript
 
-}
+//    print("\n\nStart here:\n")
+//    print(transcript)
+//    print("\n\nEnd here\n")
+//
+//    return transcript
+
+

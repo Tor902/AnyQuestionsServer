@@ -2,37 +2,39 @@ package anyquestionsserver
 
 import org.springframework.stereotype.Component
 import java.io.ByteArrayInputStream
+import java.time.LocalDateTime
 import javax.sound.sampled.AudioSystem
 
 @Component
 class AudioDataConverter {
 
-    fun toEntity(boundary : AudioDataBoundary): AudioDataEntity {
-        var entity = AudioDataEntity()
+    fun toEntity(boundary : AudioDataBoundary): QestionAnswerEntity {
+        var entity = QestionAnswerEntity()
         if(boundary.id != null){
             entity.id = boundary.id!!.toLong()
         }
 
         if(boundary.aTranscript != null && boundary.aAudioBytes != null) {
             entity.aTranscript = boundary.aTranscript
-            entity.aAudioLen = getAudioDuration(boundary.aAudioBytes!!)
-            entity.aTranscript = boundary.aTranscript
         }
 
         if(boundary.qTranscript != null && boundary.qAudioBytes != null) {
             entity.qTranscript = boundary.qTranscript
             entity.qAudioLen = getAudioDuration(boundary.qAudioBytes!!)
-            entity.qTranscript = boundary.qTranscript
         }
 
-        entity.courseId = boundary.courseId
-        entity.groupId = boundary.groupId
-        entity.lectureId = boundary.lectureId
+        entity.lectureId = boundary.lectureId!!.toLong()
+        entity.qTimestamp = LocalDateTime.now()
+        if(boundary.likes != null){
+            entity.likes = boundary.likes
+        }else{
+            entity.likes = 0
+        }
         return entity
 
     }
 
-    fun toBoundary(entity: AudioDataEntity): AudioDataBoundary {
+    fun toBoundary(entity: QestionAnswerEntity): AudioDataBoundary {
         var boundary = AudioDataBoundary()
 
         if(entity.id != null){
@@ -41,11 +43,11 @@ class AudioDataConverter {
 
         boundary.qTranscript = entity.qTranscript
         boundary.aTranscript = entity.aTranscript
-        boundary.courseId =  entity.courseId
-        boundary.groupId =  entity.groupId
-        boundary.lectureId =  entity.lectureId
-//        boundary.moreAttributes = ObjectMapper().readValue(entity.moreAttributes, Map::class.java) as Map<String, Any>
-
+        boundary.qAudioLen = entity.qAudioLen
+        boundary.aAudioLen = entity.aAudioLen
+        boundary.qTimestamp = entity.qTimestamp
+        boundary.likes = entity.likes
+        boundary.lectureId =  entity.lectureId.toString()
 
         return boundary
     }
