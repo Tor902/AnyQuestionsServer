@@ -40,6 +40,5 @@ class AudioDataServiceJPA(
         lecture.groupId = groupId
         lecture.lecturerId = lecturerId
         this.LectureCrud.save(lecture)
-
     }
 }

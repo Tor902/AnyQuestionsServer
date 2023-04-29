@@ -12,7 +12,6 @@ class LectureEntity() {
     var date: LocalDateTime? = null
     var permission: String? = null
     var groupId: String? = null
-
-//    @Column(name = "lecturer")
+    var lectureNumber: Long? = null
     var lecturerId: Long? = null
 }
