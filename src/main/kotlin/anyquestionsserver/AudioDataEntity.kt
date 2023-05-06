@@ -14,7 +14,7 @@ class QestionAnswerEntity() {
     var qTranscript: String? = null
     var aTranscript: String? = null
     var audioLen: Float? = null
-    var qTimestamp: LocalDateTime? = null
+    var timestamp: LocalDateTime? = null
     var likes: Int? = null
     var lectureId: Long? = null
 }

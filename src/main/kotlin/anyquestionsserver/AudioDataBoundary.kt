@@ -9,11 +9,9 @@ class AudioDataBoundary {
     var id: String? = null
     var qTranscript: String? = null
     var aTranscript: String? = null
-    var qAudioLen: Float? = null
-    var aAudioLen: Float? = null
-    var qAudioBytes: ByteArray? = null
-    var aAudioBytes: ByteArray? = null
-    var qTimestamp: LocalDateTime? = null
+    var audioLen: Float? = null
+    var audioBytes: ByteArray? = null
+    var timestamp: LocalDateTime? = null
     var likes: Int? = null
     var courseId: String? = null
     var groupId: String? = null

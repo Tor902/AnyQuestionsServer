@@ -34,13 +34,13 @@ class AudioDataController (
 
         val transcripts: Pair<String, String> = processAudioData(audioData)
         val qTranscript = transcripts.first
-        val aTranscript = transcripts.first
+        val aTranscript = transcripts.second
 
         var audioDataBoundary = AudioDataBoundary()
 
         audioDataBoundary.qTranscript = qTranscript
         audioDataBoundary.aTranscript = aTranscript
-
+        audioDataBoundary.audioBytes = audioData
         audioDataBoundary.courseId = courseId
         audioDataBoundary.groupId = groupId
         audioDataBoundary.lectureId = lectureId
@@ -118,9 +118,9 @@ private fun processAudioData(audioData: ByteArray): Pair<String, String>  {
     val speaker2Words = StringBuilder()
     for (wordData in response.resultsList[response.resultsList.size-1].alternativesList[0].wordsList){
         if (wordData.speakerTag == 1) {
-            speaker1Words.append(wordData.word)
+            speaker1Words.append(wordData.word).append(" ")
         } else if (wordData.speakerTag == 2) {
-            speaker2Words.append(wordData.word)
+            speaker2Words.append(wordData.word).append(" ")
         }
     }
 

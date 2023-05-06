@@ -14,17 +14,11 @@ class AudioDataConverter {
             entity.id = boundary.id!!.toLong()
         }
 
-        if(boundary.aTranscript != null && boundary.aAudioBytes != null) {
-            entity.aTranscript = boundary.aTranscript
-        }
-
-        if(boundary.qTranscript != null && boundary.qAudioBytes != null) {
-            entity.qTranscript = boundary.qTranscript
-            entity.qAudioLen = getAudioDuration(boundary.qAudioBytes!!)
-        }
-
+        entity.aTranscript = boundary.aTranscript
+        entity.qTranscript = boundary.qTranscript
+        entity.audioLen = getAudioDuration(boundary.audioBytes!!)
         entity.lectureId = boundary.lectureId!!.toLong()
-        entity.qTimestamp = LocalDateTime.now()
+        entity.timestamp = LocalDateTime.now()
         if(boundary.likes != null){
             entity.likes = boundary.likes
         }else{
@@ -43,9 +37,8 @@ class AudioDataConverter {
 
         boundary.qTranscript = entity.qTranscript
         boundary.aTranscript = entity.aTranscript
-        boundary.qAudioLen = entity.qAudioLen
-        boundary.aAudioLen = entity.aAudioLen
-        boundary.qTimestamp = entity.qTimestamp
+        boundary.audioLen = entity.audioLen
+        boundary.timestamp = entity.timestamp
         boundary.likes = entity.likes
         boundary.lectureId =  entity.lectureId.toString()
 
