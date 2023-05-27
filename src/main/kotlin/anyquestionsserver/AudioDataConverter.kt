@@ -2,7 +2,7 @@ package anyquestionsserver
 
 import org.springframework.stereotype.Component
 import java.io.ByteArrayInputStream
-import java.time.LocalDateTime
+import java.util.*
 import javax.sound.sampled.AudioSystem
 
 @Component
@@ -10,15 +10,16 @@ class AudioDataConverter {
 
     fun toEntity(boundary : AudioDataBoundary): QestionAnswerEntity {
         var entity = QestionAnswerEntity()
-        if(boundary.id != null){
-            entity.id = boundary.id!!.toLong()
+        if(boundary.id == null){
+            entity.id = boundary.lectureId + "QA22"
         }
 
         entity.aTranscript = boundary.aTranscript
         entity.qTranscript = boundary.qTranscript
         entity.audioLen = getAudioDuration(boundary.audioBytes!!)
         entity.lectureId = boundary.lectureId!!.toLong()
-        entity.timestamp = LocalDateTime.now()
+        entity.timestamp = Date()
+//        entity.timestamp = Date()
         if(boundary.likes != null){
             entity.likes = boundary.likes
         }else{
@@ -32,7 +33,7 @@ class AudioDataConverter {
         var boundary = AudioDataBoundary()
 
         if(entity.id != null){
-            boundary.id = entity.id!!.toString()
+            boundary.id = entity.id
         }
 
         boundary.qTranscript = entity.qTranscript

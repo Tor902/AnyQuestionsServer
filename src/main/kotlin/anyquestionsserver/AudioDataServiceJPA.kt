@@ -3,7 +3,6 @@ package anyquestionsserver
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.time.LocalDateTime
 import java.util.*
 
 @Service
@@ -35,7 +34,7 @@ class AudioDataServiceJPA(
 
     override fun newLecture(courseId: String, groupId: String, live: Boolean, lecturerId: Long) {
         var lecture = LectureEntity()
-        lecture.date = LocalDateTime.now()
+        lecture.date = Date()
         lecture.permission = live.toString()
         lecture.groupId = groupId
         lecture.lecturerId = lecturerId

@@ -5,7 +5,7 @@ import javax.persistence.*
 
 
 @Entity
-@Table(name="LECTURER")
+@Table(name="LECTURER_XXX")
 class LecturerEntity() {
     @Id
     @GeneratedValue

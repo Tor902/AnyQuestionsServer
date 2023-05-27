@@ -1,9 +1,6 @@
 package anyquestionsserver
 
-import java.time.LocalDateTime
-import javax.persistence.Column
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import java.util.*
 
 class AudioDataBoundary {
     var id: String? = null
@@ -11,9 +8,16 @@ class AudioDataBoundary {
     var aTranscript: String? = null
     var audioLen: Float? = null
     var audioBytes: ByteArray? = null
-    var timestamp: LocalDateTime? = null
+    var timestamp: Date? = null
     var likes: Int? = null
     var courseId: String? = null
     var groupId: String? = null
     var lectureId: String? = null
+}
+
+class QABoundary{
+    var question: String? = null
+    var answer: String? = null
+    var likes: Int? = null
+    var timestamp: Date? = null
 }

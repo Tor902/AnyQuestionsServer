@@ -23,6 +23,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	// https://mvnrepository.com/artifact/org.postgresql/postgresql
+	implementation("org.postgresql:postgresql:42.6.0")
 
 	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
 	implementation("org.springdoc:springdoc-openapi-ui:1.6.15")
