@@ -19,7 +19,7 @@ class AudioDataController (
     ) {
 
     @RequestMapping(
-        path = ["/audio/{courseId}/{groupId}/{lectureId}"],
+        path = ["/audio/{courseId}/{groupId}/{lectureId}/{nextQA}"],
         method = [RequestMethod.POST],
         consumes = [MediaType.APPLICATION_OCTET_STREAM_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE]
@@ -29,7 +29,9 @@ class AudioDataController (
         @PathVariable courseId: String,
         @PathVariable groupId: String,
         @PathVariable lectureId: String,
-    ): QABoundary {
+        @PathVariable nextQA: String,
+
+        ): QABoundary {
 
         val transcripts: Pair<String, String> = processAudioData(audioData)
         val qTranscript = transcripts.first
@@ -44,12 +46,13 @@ class AudioDataController (
         audioDataBoundary.groupId = groupId
         audioDataBoundary.lectureId = lectureId
 
-        var returned_boundary = audioDataService.create(audioDataBoundary)
+        var returned_boundary = audioDataService.create(audioDataBoundary, nextQA)
         var qaBoundary = QABoundary()
         qaBoundary.question = returned_boundary.qTranscript
         qaBoundary.answer = returned_boundary.aTranscript
         qaBoundary.likes = returned_boundary.likes
         qaBoundary.timestamp = returned_boundary.timestamp
+        qaBoundary.id = returned_boundary.id
 
         return qaBoundary
     }
@@ -123,12 +126,5 @@ private fun processAudioData(audioData: ByteArray): Pair<String, String>  {
 
         return Pair(speaker1Words.toString(), speaker2Words.toString())
     }
-
-
-//    print("\n\nStart here:\n")
-//    print(transcript)
-//    print("\n\nEnd here\n")
-//
-//    return transcript
 
 

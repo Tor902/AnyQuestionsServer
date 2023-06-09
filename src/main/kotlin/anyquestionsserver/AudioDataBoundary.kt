@@ -16,6 +16,7 @@ class AudioDataBoundary {
 }
 
 class QABoundary{
+    var id: String? = null
     var question: String? = null
     var answer: String? = null
     var likes: Int? = null

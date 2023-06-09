@@ -8,18 +8,15 @@ import javax.sound.sampled.AudioSystem
 @Component
 class AudioDataConverter {
 
-    fun toEntity(boundary : AudioDataBoundary): QestionAnswerEntity {
+    fun toEntity(boundary : AudioDataBoundary, nextQA: String): QestionAnswerEntity {
         var entity = QestionAnswerEntity()
-        if(boundary.id == null){
-            entity.id = boundary.lectureId + "QA22"
-        }
 
+        entity.id = boundary.lectureId + nextQA
         entity.aTranscript = boundary.aTranscript
         entity.qTranscript = boundary.qTranscript
         entity.audioLen = getAudioDuration(boundary.audioBytes!!)
         entity.lectureId = boundary.lectureId!!.toLong()
         entity.timestamp = Date()
-//        entity.timestamp = Date()
         if(boundary.likes != null){
             entity.likes = boundary.likes
         }else{

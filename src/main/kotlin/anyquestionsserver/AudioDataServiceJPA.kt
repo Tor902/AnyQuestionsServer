@@ -13,24 +13,16 @@ class AudioDataServiceJPA(
     @Autowired val lectureConverter:LectureConverter
 ) : AudioDataService{
     @Transactional
-    override fun create(audioData: AudioDataBoundary): AudioDataBoundary {
+    override fun create(audioData: AudioDataBoundary, nextQA: String): AudioDataBoundary {
         audioData.id = null
         return this.audioConverter.
                 toBoundary(
                     this.audioDataCrud.save(
                         this.audioConverter.toEntity(
-                            audioData
+                            audioData, nextQA
                         )
                     )
                 )
-    }
-
-    override fun getAll(size: Int, page: Int): List<AudioDataBoundary> {
-        TODO("Not yet implemented")
-    }
-
-    override fun cleanup() {
-        TODO("Not yet implemented")
     }
 
     override fun newLecture(groupId: String, lectureNumber: String, permission: Boolean): LectureBoundary{
