@@ -14,4 +14,6 @@ class LectureEntity() {
 
     @Column(name = "group_id")
     var groupId: Long? = null
+
+
 }
