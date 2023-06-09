@@ -55,24 +55,15 @@ class AudioDataController (
     }
 
     @RequestMapping(
-        path = ["/start/{courseId}/{groupId}/{lectureId}/{live}/{lecturerId}"],
+        path = ["/start/{groupId}/{lectureNumber}/{permission}"],
         method = [RequestMethod.POST],
-//        produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun startLecture(
-        @PathVariable courseId: String,
         @PathVariable groupId: String,
-        @PathVariable lectureId: String,
-        @PathVariable lecturerId: Long,
-        @PathVariable live: Boolean,
-    ){
-        // add 'new' to dropdown
-
-        // add time to lecture + round up to lectures timing
-
-        // if lecture already exists continue its summary
-
-        audioDataService.newLecture(courseId, groupId, live, lecturerId)
+        @PathVariable lectureNumber: String,
+        @PathVariable permission: Boolean,
+    ): LectureBoundary{
+        return audioDataService.newLecture(groupId, lectureNumber, permission)
     }
 
 }

@@ -5,12 +5,13 @@ import javax.persistence.*
 
 
 @Entity
-@Table(name="LECTURE_XXX")
+@Table(name="LECTURES")
 class LectureEntity() {
-    @Id  @GeneratedValue var id: Long? = null
+    @Id var id: Long? = null
     var date: Date? = null
-    var permission: String? = null
-    var groupId: String? = null
-    var lectureNumber: Long? = null
-    var lecturerId: Long? = null
+    var permission: Boolean? = null
+    var lectureNumber: Int? = null
+
+    @Column(name = "group_id")
+    var groupId: Long? = null
 }

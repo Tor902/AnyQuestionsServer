@@ -1,11 +1,13 @@
 package anyquestionsserver
 
-import java.util.Date
+import java.util.*
 
 class LectureBoundary {
     var id: String? = null
     var date: Date? = null
-    var permission: String? = null
+    var permission: Boolean? = null
     var groupId: String? = null
-    var lecturer: LecturerBoundary? = null
+    var lectureNumber: Int? = null
+
 }
+

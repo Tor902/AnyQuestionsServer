@@ -8,16 +8,17 @@ import java.util.*
 @Service
 class AudioDataServiceJPA(
     @Autowired val audioDataCrud:AudioDataCrud,
-    @Autowired val LectureCrud:LectureCrud,
-    @Autowired val converter:AudioDataConverter
+    @Autowired val lectureCrud:LectureCrud,
+    @Autowired val audioConverter:AudioDataConverter,
+    @Autowired val lectureConverter:LectureConverter
 ) : AudioDataService{
     @Transactional
     override fun create(audioData: AudioDataBoundary): AudioDataBoundary {
         audioData.id = null
-        return this.converter.
+        return this.audioConverter.
                 toBoundary(
                     this.audioDataCrud.save(
-                        this.converter.toEntity(
+                        this.audioConverter.toEntity(
                             audioData
                         )
                     )
@@ -32,12 +33,19 @@ class AudioDataServiceJPA(
         TODO("Not yet implemented")
     }
 
-    override fun newLecture(courseId: String, groupId: String, live: Boolean, lecturerId: Long) {
+    override fun newLecture(groupId: String, lectureNumber: String, permission: Boolean): LectureBoundary{
+        // audioDataService.newLecture(groupId, lectureNumber, permission)
         var lecture = LectureEntity()
         lecture.date = Date()
-        lecture.permission = live.toString()
-        lecture.groupId = groupId
-        lecture.lecturerId = lecturerId
-        this.LectureCrud.save(lecture)
+        lecture.permission = permission
+        lecture.groupId = groupId.toLong()
+        lecture.lectureNumber = lectureNumber.toInt()
+        var lectureNumberStr = lectureNumber
+        if(lectureNumber.toInt() < 10){
+            lectureNumberStr = "0$lectureNumber"
+        }
+        lecture.id = (groupId + lectureNumberStr).toLong()
+        this.lectureCrud.save(lecture)
+        return this.lectureConverter.toBoundary(lecture)
     }
 }
